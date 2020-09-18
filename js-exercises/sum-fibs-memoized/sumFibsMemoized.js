@@ -3,7 +3,7 @@ function sumFibs(num) {
   let n = 1;
 
   while(sum <= num){
-    let currFib=cacheFunction(n)
+    let currFib=fibo(n);
     if(currFib%2===1 && currFib<=num){
       sum += currFib;
     }
@@ -13,9 +13,23 @@ function sumFibs(num) {
   
 }
 
-function cacheFunction(n) {
+function fibo(n){
   if(n <= 1) return 1;
-  return cacheFunction(n-1) + cacheFunction(n-2)
+  return fibo(n-1) + fibo(n-2)
 }
 
-export { sumFibs, cacheFunction };
+function cacheFunction(sumFibs) {
+  var cacheObject={};
+  return (arg) =>{
+    if(arg !== undefined){
+      if(cacheObject[arg] !== undefined){
+        return cacheObject[arg];
+      }else{
+        cacheObject[arg] = sumFibs(arg);
+        return cacheObject[arg];
+      }
+    }return sumFibs();
+  }
+}
+
+export { sumFibs,fibo, cacheFunction };
